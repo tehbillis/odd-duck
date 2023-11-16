@@ -1,55 +1,14 @@
 # LAB - Number
 
-## Project Name
+## Odd Duck Products
 
-I build an app with a direct and powerful purpose. It does all of the things that it accomplishes well. I should describe the purpose and functionality so those that visit my README understand the app
+A kiosk app for a company that creates the next best thing. This app is a randomized survey used to determine which item should be next one that they bring to market. With 3 random and unique products to choose from each round, this application will collect more data than just which one was selected, but also how many times each product was shown. These stats will help the company make its decision on which product to make!
 
-### Author: Student/Group Name
+### Author: William Green
 
-### Links and Resources
+In Collaboration with:
 
-* [submission PR](http://xyz.com)
-* Any Links you used as reference
+* Trevor Ingram - Lab 11
 
 ### Lighthouse Accessibility Report Score
-
-* Provide a screenshot of your score after running a Lighthouse Accessibility report.
-
-### Reflections and Comments
-
-* Consider including the answers to your daily journal and submission questions here
-* This is also a good place to reflect on the tools and resources used and learned
-
-## How to create a new 201 project
-
-Follow these steps to create a new code 201 project.
-
-### Step 1 - Clone the boilerplate project
-
-First clone the boilerplate project to your computer in your 201 folder. In terminal:
-
-```
-git clone https://github.com/tehbillis/code201-boilerplate.git
-```
-
-### Step 2 - Create new project repo
-
-Now create your new project repo on github. Give it a name but don't add a readme or license, these are built into the boilerplate.
-
-### Step 3 - Rename the boilerplate folder
-
-Rename the code201-boilerplate folder to the new project name. In terminal:
-
-```
-mv old_folder_name new_folder_name
-```
-
-### Step 4 - Change project remote URL
-
-Go into the new project folder and run the following commands in terminal:
-
-```
-git remote rename origin old-origin
-
-git remote add origin https://github.com/tehbillis/project-name.git
-```
+![lighthouse rating](img/lighthouse/Screenshot%202023-11-15%20at%209.07.01%20PM.png)
