@@ -2,6 +2,8 @@ window.onload = function() {
   // global variables
   const imagesToDisplay = 3;
   const rounds = 25;
+  const chosenProducts = [];
+
 
   class OddProduct {
     constructor (name, path) {
@@ -44,11 +46,11 @@ window.onload = function() {
   const wineGlass = new OddProduct('wine-glass', 'img/wine-glass.jpg');
 
   function generateProducts() {
-    const chosenProducts = [];
     let container = document.getElementById('productContainer');
 
     if(container.hasChildNodes()) {
       container.innerHTML = '';
+      chosenProducts.splice(0, chosenProducts.length);
     }
     
     for(let i = 0; i < imagesToDisplay; i++) {
@@ -60,14 +62,25 @@ window.onload = function() {
         console.log('already there');
       } else {
         chosenProducts.push(randomProduct);
+
         let product = document.createElement('img');
         product.src = randomProduct.path;
+        product.id = i;
         container.appendChild(product); 
+
+        randomProduct.timesShown++;
       }
     }
+  }
+
+  function productClick(event) {
+    let chosenProduct = chosenProducts[event.srcElement.id];
+    chosenProduct.timesClicked++;
+    
+    generateProducts();
   }
   
   generateProducts();
 
-  document.getElementById('productContainer').addEventListener('click', generateProducts);
+  document.getElementById('productContainer').addEventListener('click', productClick);
 }
