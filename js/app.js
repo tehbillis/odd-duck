@@ -37,7 +37,7 @@ window.onload = function() {
   const petSweep = new OddProduct('pet-sweep', 'img/pet-sweep.jpg');
   const scissors = new OddProduct('scissors', 'img/scissors.jpg');
   const shark = new OddProduct('shark', 'img/shark.jpg');
-  const sweep = new OddProduct('sweep', 'img/sweep.jpg');
+  const sweep = new OddProduct('sweep', 'img/sweep.png');
   const tauntaun = new OddProduct('tauntaun', 'img/tauntaun.jpg');
   const unicorn = new OddProduct('unicorn', 'img/unicorn.jpg');
   const waterCan = new OddProduct('water-can', 'img/water-can.jpg');
@@ -45,11 +45,16 @@ window.onload = function() {
 
   function generateProducts() {
     const chosenProducts = [];
-    //TODO: for loop that loops through equal to the value of imagesToDisplay.
+    let container = document.getElementById('productContainer');
+
+    if(container.hasChildNodes()) {
+      container.innerHTML = '';
+    }
+    
     for(let i = 0; i < imagesToDisplay; i++) {
       const randomNumber = Math.floor(Math.random() * 19);
       let randomProduct = OddProduct.objectList[randomNumber];
-      //TODO: get the associated product from out objectList[];, Do a check to make sure we haven't already picked this object. If not there, add it to the array. If it's there, minus 1 from i.
+      
       if (chosenProducts.includes(randomProduct)) {
         i--;
         console.log('already there');
@@ -57,15 +62,12 @@ window.onload = function() {
         chosenProducts.push(randomProduct);
         let product = document.createElement('img');
         product.src = randomProduct.path;
-        document.getElementById('productContainer').appendChild(product);
+        container.appendChild(product); 
       }
     }
-    console.log(chosenProducts);
-    
   }
   
   generateProducts();
-  // for(let i = 0; i <= rounds; i++) {
-  //   generateProducts();
-  // }
+
+  document.getElementById('productContainer').addEventListener('click', generateProducts);
 }
