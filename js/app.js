@@ -1,8 +1,11 @@
 window.onload = function() {
   // global variables
   const imagesToDisplay = 3;
-  const rounds = 25;
+  let rounds = 5;
+
   const chosenProducts = [];
+  let container = document.getElementById('productContainer');
+  let resultsContainer = document.getElementById('results');
 
 
   class OddProduct {
@@ -46,8 +49,6 @@ window.onload = function() {
   const wineGlass = new OddProduct('wine-glass', 'img/wine-glass.jpg');
 
   function generateProducts() {
-    let container = document.getElementById('productContainer');
-
     if(container.hasChildNodes()) {
       container.innerHTML = '';
       chosenProducts.splice(0, chosenProducts.length);
@@ -59,7 +60,6 @@ window.onload = function() {
       
       if (chosenProducts.includes(randomProduct)) {
         i--;
-        console.log('already there');
       } else {
         chosenProducts.push(randomProduct);
 
@@ -74,13 +74,42 @@ window.onload = function() {
   }
 
   function productClick(event) {
-    let chosenProduct = chosenProducts[event.srcElement.id];
-    chosenProduct.timesClicked++;
-    
-    generateProducts();
+    if(rounds > 1) {
+      let chosenProduct = chosenProducts[event.srcElement.id];
+      chosenProduct.timesClicked++;
+      
+      rounds--;
+
+      generateProducts();
+      console.log(rounds);
+    } else {
+      container.removeEventListener('click', productClick);
+      container.innerHTML = '';
+
+      let resultsBtn = document.createElement('button');
+      resultsBtn.textContent = 'View Results';
+      resultsContainer.appendChild(resultsBtn);
+      resultsBtn.addEventListener('click', resultsClick);
+    }
+  }
+
+  function resultsClick(event) {
+    resultsContainer.removeChild(resultsContainer.lastChild);
+
+    let resultsList = document.createElement('ul');
+    resultsContainer.appendChild(resultsList);
+
+    console.log(OddProduct.objectList);
+
+    for(let product in OddProduct.objectList) {
+      product = OddProduct.objectList[product];
+      let resultListItem = document.createElement('li');
+      resultListItem.textContent = product.name + ' had ' + product.timesClicked + ' votes, and was seen ' + product.timesShown + ' times.';
+      resultsList.appendChild(resultListItem);
+    }
   }
   
   generateProducts();
 
-  document.getElementById('productContainer').addEventListener('click', productClick);
+  container.addEventListener('click', productClick);
 }
