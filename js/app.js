@@ -24,7 +24,7 @@ window.onload = function() {
     }
 
     incrementClicks() {
-      this.incrementClicks++;
+      this.timesClicked++;
     }
   }
 
@@ -68,7 +68,7 @@ window.onload = function() {
         product.id = i;
         container.appendChild(product); 
 
-        randomProduct.timesShown++;
+        randomProduct.incrementViews;
       }
     }
   }
@@ -76,7 +76,7 @@ window.onload = function() {
   function productClick(event) {
     if(rounds > 1) {
       let chosenProduct = chosenProducts[event.srcElement.id];
-      chosenProduct.timesClicked++;
+      chosenProduct.incrementClicks;
       
       rounds--;
 
