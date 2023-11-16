@@ -1,0 +1,74 @@
+body {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+}
+
+header {
+  grid-area: 1 / 1 / 2 / 6; 
+  display: flex;
+}
+
+header h1 {
+  font-family: 'Marhey', sans-serif;
+  font-size: 50px;
+  margin-left: 20px;
+  align-self: center;
+  flex-shrink: 0;
+}
+
+footer {
+  grid-area: 6 / 1 / 7 / 6; 
+  display: flex;
+  justify-content: center;
+}
+
+#results {
+  grid-area: 2 / 1 / 6 / 2; 
+  margin-left: 20px;
+}
+
+#productContainer {
+  grid-area: 2 / 2 / 6 / 6; 
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#productContainer img {
+  width: auto; /* Reset width to auto */
+  height: 30vh; /* Set height to 100% of the container */
+}
+
+#siteWelcome {
+  grid-area: 4 / 2 / 6 / 6; 
+  text-align: center;
+}
+
+#siteWelcome h2 {
+  font-size: 2em;
+  font-weight: bold;
+  font-family: 'Marhey', sans-serif;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#siteWelcome h3 {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+#siteWelcome p {
+  margin-bottom: 15px;
+}
+
+#siteWelcome ol {
+  margin-bottom: 15px;
+}
+
+#siteWelcome li {
+  margin-bottom: 5px;
+}

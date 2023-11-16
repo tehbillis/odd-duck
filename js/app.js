@@ -1,7 +1,7 @@
 window.onload = function() {
   // global variables
   const imagesToDisplay = 3;
-  let rounds = 5;
+  let rounds = 25;
 
   const chosenProducts = [];
   let container = document.getElementById('productContainer');
