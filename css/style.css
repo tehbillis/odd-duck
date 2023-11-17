@@ -29,6 +29,7 @@ footer {
 #results {
   grid-area: 2 / 1 / 6 / 2; 
   margin-left: 20px;
+  transition: all 1s;
 }
 
 #productContainer {
@@ -44,31 +45,7 @@ footer {
 
 #siteWelcome {
   grid-area: 4 / 2 / 6 / 6; 
-  text-align: center;
-}
-
-#siteWelcome h2 {
-  font-size: 2em;
-  font-weight: bold;
-  font-family: 'Marhey', sans-serif;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-#siteWelcome h3 {
-  font-size: 1.2em;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-#siteWelcome p {
-  margin-bottom: 15px;
-}
-
-#siteWelcome ol {
-  margin-bottom: 15px;
-}
-
-#siteWelcome li {
-  margin-bottom: 5px;
+  height: 400px;
+  width: 1000px;
+  margin: 0 auto;
 }

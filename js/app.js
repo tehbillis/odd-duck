@@ -49,16 +49,18 @@ window.onload = function() {
   const wineGlass = new OddProduct('wine-glass', 'img/wine-glass.jpg');
 
   function generateProducts() {
-    if(container.hasChildNodes()) {
+    let oldProducts = chosenProducts.slice();
+
+    if(container.childNodes.length > 1) {
       container.innerHTML = '';
       chosenProducts.splice(0, chosenProducts.length);
     }
     
     for(let i = 0; i < imagesToDisplay; i++) {
-      const randomNumber = Math.floor(Math.random() * 19);
+      const randomNumber = Math.floor(Math.random() * OddProduct.objectList.length);
       let randomProduct = OddProduct.objectList[randomNumber];
-      
-      if (chosenProducts.includes(randomProduct)) {
+
+      if (chosenProducts.includes(randomProduct) || oldProducts.includes(randomProduct)) {
         i--;
       } else {
         chosenProducts.push(randomProduct);
@@ -68,7 +70,7 @@ window.onload = function() {
         product.id = i;
         container.appendChild(product); 
 
-        randomProduct.incrementViews;
+        randomProduct.incrementViews();
       }
     }
   }
@@ -76,12 +78,11 @@ window.onload = function() {
   function productClick(event) {
     if(rounds > 1) {
       let chosenProduct = chosenProducts[event.srcElement.id];
-      chosenProduct.incrementClicks;
+      chosenProduct.incrementClicks();
       
       rounds--;
 
       generateProducts();
-      console.log(rounds);
     } else {
       container.removeEventListener('click', productClick);
       container.innerHTML = '';
@@ -94,19 +95,56 @@ window.onload = function() {
   }
 
   function resultsClick(event) {
+    // Remove the button
     resultsContainer.removeChild(resultsContainer.lastChild);
 
+    // Create results list and add it to the container
     let resultsList = document.createElement('ul');
     resultsContainer.appendChild(resultsList);
 
-    console.log(OddProduct.objectList);
+    // Initialize chart labels and data
+    let chartLabels = [];
+    let votesData = [];
+    let viewedData = [];
 
     for(let product in OddProduct.objectList) {
+      // Generate results list items and add them to the list
       product = OddProduct.objectList[product];
       let resultListItem = document.createElement('li');
       resultListItem.textContent = product.name + ' had ' + product.timesClicked + ' votes, and was seen ' + product.timesShown + ' times.';
       resultsList.appendChild(resultListItem);
+
+      // Populate chart labels and data
+      chartLabels.push(product.name);
+      votesData.push(product.timesClicked);
+      viewedData.push(product.timesShown);
     }
+
+    // Chart Code
+    const resultsCtx = document.getElementById('resultsChart');
+
+    new Chart(resultsCtx, {
+      type: 'bar',
+      data: {
+        labels: chartLabels,
+        datasets: [{
+          label: 'Votes',
+          data: votesData
+        }, {
+          label: 'Views',
+          data: viewedData
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
   }
   
   generateProducts();
