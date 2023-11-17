@@ -44,31 +44,4 @@ footer {
 
 #siteWelcome {
   grid-area: 4 / 2 / 6 / 6; 
-  text-align: center;
-}
-
-#siteWelcome h2 {
-  font-size: 2em;
-  font-weight: bold;
-  font-family: 'Marhey', sans-serif;
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
-#siteWelcome h3 {
-  font-size: 1.2em;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-#siteWelcome p {
-  margin-bottom: 15px;
-}
-
-#siteWelcome ol {
-  margin-bottom: 15px;
-}
-
-#siteWelcome li {
-  margin-bottom: 5px;
 }
