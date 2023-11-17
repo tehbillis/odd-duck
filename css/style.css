@@ -29,6 +29,7 @@ footer {
 #results {
   grid-area: 2 / 1 / 6 / 2; 
   margin-left: 20px;
+  transition: all 1s;
 }
 
 #productContainer {
@@ -44,4 +45,7 @@ footer {
 
 #siteWelcome {
   grid-area: 4 / 2 / 6 / 6; 
+  height: 400px;
+  width: 1000px;
+  margin: 0 auto;
 }
