@@ -24,7 +24,7 @@ window.onload = function() {
     }
 
     incrementClicks() {
-      this.incrementClicks++;
+      this.timesClicked++;
     }
   }
 
@@ -49,16 +49,18 @@ window.onload = function() {
   const wineGlass = new OddProduct('wine-glass', 'img/wine-glass.jpg');
 
   function generateProducts() {
-    if(container.hasChildNodes()) {
+    let oldProducts = chosenProducts.slice();
+
+    if(container.childNodes.length > 1) {
       container.innerHTML = '';
       chosenProducts.splice(0, chosenProducts.length);
     }
     
     for(let i = 0; i < imagesToDisplay; i++) {
-      const randomNumber = Math.floor(Math.random() * 19);
+      const randomNumber = Math.floor(Math.random() * OddProduct.objectList.length);
       let randomProduct = OddProduct.objectList[randomNumber];
-      
-      if (chosenProducts.includes(randomProduct)) {
+
+      if (chosenProducts.includes(randomProduct) || oldProducts.includes(randomProduct)) {
         i--;
       } else {
         chosenProducts.push(randomProduct);
@@ -68,7 +70,7 @@ window.onload = function() {
         product.id = i;
         container.appendChild(product); 
 
-        randomProduct.timesShown++;
+        randomProduct.incrementViews;
       }
     }
   }
@@ -76,12 +78,11 @@ window.onload = function() {
   function productClick(event) {
     if(rounds > 1) {
       let chosenProduct = chosenProducts[event.srcElement.id];
-      chosenProduct.timesClicked++;
+      chosenProduct.incrementClicks;
       
       rounds--;
 
       generateProducts();
-      console.log(rounds);
     } else {
       container.removeEventListener('click', productClick);
       container.innerHTML = '';
