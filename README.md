@@ -11,4 +11,4 @@ In Collaboration with:
 * Trevor Ingram - Lab 11
 
 ### Lighthouse Accessibility Report Score
-![lighthosue rating](img/lighthouse/Screenshot%202023-11-16%20at%2010.25.51%20PM.png)
+![lighthouse rating](img/lighthouse/Screenshot%202023-11-17%20at%2010.43.58 PM.png)
