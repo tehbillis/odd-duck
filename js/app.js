@@ -18,14 +18,6 @@ window.onload = function() {
     }
 
     static objectList = [];
-
-    incrementViews() {
-      this.timesShown++;
-    }
-
-    incrementClicks() {
-      this.timesClicked++;
-    }
   }
 
   const bag = new OddProduct('bag', 'img/bag.jpg');
@@ -47,6 +39,13 @@ window.onload = function() {
   const unicorn = new OddProduct('unicorn', 'img/unicorn.jpg');
   const waterCan = new OddProduct('water-can', 'img/water-can.jpg');
   const wineGlass = new OddProduct('wine-glass', 'img/wine-glass.jpg');
+
+  // Persist vote data
+  if(localStorage.getItem('objectList')) {
+    OddProduct.objectList = JSON.parse(localStorage.getItem('objectList'));
+
+    //TODO: Refactor code, make a function to create our product objects based on the returned json if it exists in the localstorage. otherwise run the giant block above or create a custom json string with default 0 values for the views and clicks. seems like a cleaner way to get our objects back into our code.
+  }
 
   function generateProducts() {
     let oldProducts = chosenProducts.slice();
@@ -70,7 +69,7 @@ window.onload = function() {
         product.id = i;
         container.appendChild(product); 
 
-        randomProduct.incrementViews();
+        randomProduct.timesShown++;
       }
     }
   }
@@ -78,7 +77,7 @@ window.onload = function() {
   function productClick(event) {
     if(rounds > 1) {
       let chosenProduct = chosenProducts[event.srcElement.id];
-      chosenProduct.incrementClicks();
+      chosenProduct.timesClicked++;
       
       rounds--;
 
@@ -146,8 +145,16 @@ window.onload = function() {
       }
     });
   }
+
+  function quickSave() {
+    localStorage.setItem('objectList', JSON.stringify(OddProduct.objectList));
+  }
   
   generateProducts();
 
   container.addEventListener('click', productClick);
+
+  window.addEventListener('beforeunload', function() {
+    quickSave();
+  })
 }
