@@ -7,7 +7,7 @@ window.onload = function() {
   let container = document.getElementById('productContainer');
   let resultsContainer = document.getElementById('results');
 
-
+  // Product Class
   class OddProduct {
     constructor (name, path) {
       this.name = name;
@@ -20,6 +20,7 @@ window.onload = function() {
     static objectList = [];
   }
 
+  // Create objects
   const bag = new OddProduct('bag', 'img/bag.jpg');
   const banana = new OddProduct('banana', 'img/banana.jpg');
   const bathroom = new OddProduct('bathroom', 'img/bathroom.jpg');
@@ -43,13 +44,12 @@ window.onload = function() {
   // Persist vote data
   if(localStorage.getItem('objectList')) {
     OddProduct.objectList = JSON.parse(localStorage.getItem('objectList'));
-
-    //TODO: Refactor code, make a function to create our product objects based on the returned json if it exists in the localstorage. otherwise run the giant block above or create a custom json string with default 0 values for the views and clicks. seems like a cleaner way to get our objects back into our code.
   }
 
   function generateProducts() {
     let oldProducts = chosenProducts.slice();
 
+    // if there are images here, clear them from the page and our variable.
     if(container.childNodes.length > 1) {
       container.innerHTML = '';
       chosenProducts.splice(0, chosenProducts.length);
@@ -60,8 +60,10 @@ window.onload = function() {
       let randomProduct = OddProduct.objectList[randomNumber];
 
       if (chosenProducts.includes(randomProduct) || oldProducts.includes(randomProduct)) {
+        // if new random product was chosen this time or last time, don't do anything and try again.
         i--;
       } else {
+        // If actually unique, then get it displayed!
         chosenProducts.push(randomProduct);
 
         let product = document.createElement('img');
@@ -75,7 +77,9 @@ window.onload = function() {
   }
 
   function productClick(event) {
+    // Check rounds remaining
     if(rounds > 1) {
+      // Let's play! increment clicked object and decrease rounds.
       let chosenProduct = chosenProducts[event.srcElement.id];
       chosenProduct.timesClicked++;
       
@@ -83,23 +87,25 @@ window.onload = function() {
 
       generateProducts();
     } else {
+      // No more play, clear board and move on to results.
       container.removeEventListener('click', productClick);
       container.innerHTML = '';
 
-      let resultsBtn = document.createElement('button');
-      resultsBtn.textContent = 'View Results';
-      resultsContainer.appendChild(resultsBtn);
-      resultsBtn.addEventListener('click', resultsClick);
+      handleResults();
     }
   }
 
-  function resultsClick(event) {
-    // Remove the button
-    resultsContainer.removeChild(resultsContainer.lastChild);
+  function handleResults() {
+    // Create restart button
+    let restartBtn = document.createElement('button');
+    restartBtn.innerText = 'Vote Again!';
+    restartBtn.id = 'restartBtn';
+    container.appendChild(restartBtn);
 
-    // Create results list and add it to the container
-    let resultsList = document.createElement('ul');
-    resultsContainer.appendChild(resultsList);
+    restartBtn.addEventListener('click', function() {
+      // Reload the current page
+      location.reload();
+    });
 
     // Initialize chart labels and data
     let chartLabels = [];
@@ -109,9 +115,6 @@ window.onload = function() {
     for(let product in OddProduct.objectList) {
       // Generate results list items and add them to the list
       product = OddProduct.objectList[product];
-      let resultListItem = document.createElement('li');
-      resultListItem.textContent = product.name + ' had ' + product.timesClicked + ' votes, and was seen ' + product.timesShown + ' times.';
-      resultsList.appendChild(resultListItem);
 
       // Populate chart labels and data
       chartLabels.push(product.name);
@@ -146,12 +149,14 @@ window.onload = function() {
     });
   }
 
+  // Save stats before window is closed or refreshed
   function quickSave() {
     localStorage.setItem('objectList', JSON.stringify(OddProduct.objectList));
   }
   
   generateProducts();
 
+  // Event Listeners
   container.addEventListener('click', productClick);
 
   window.addEventListener('beforeunload', function() {
